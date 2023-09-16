@@ -2,7 +2,7 @@ package user;
 
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
-import models.CreateUserErrorResponse;
+import models.UserErrorResponse;
 import models.CreateUserRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,11 +14,11 @@ import static org.junit.Assert.assertEquals;
 import static user.UserGenerator.*;
 
 @RunWith(Parameterized.class)
-public class CreateUserParametrizedNegativeTests {
+public class CreateUserParametrizedNegativeTest {
     private final CreateUserRequest createUserRequest;
     private final UserProfile userProfile = new UserProfile();
 
-    public CreateUserParametrizedNegativeTests(String ignoredDescription, CreateUserRequest createUserRequest) {
+    public CreateUserParametrizedNegativeTest(String ignoredDescription, CreateUserRequest createUserRequest) {
         this.createUserRequest = createUserRequest;
     }
 
@@ -36,9 +36,9 @@ public class CreateUserParametrizedNegativeTests {
     public void createUserWithoutRequiredField() {
         Response response = userProfile.create(createUserRequest);
 
-        CreateUserErrorResponse createUserErrorResponse = response.as(CreateUserErrorResponse.class);
+        UserErrorResponse userErrorResponse = response.as(UserErrorResponse.class);
 
         assertEquals("Invalid status code", SC_FORBIDDEN, response.statusCode());
-        assertEquals("The response body must contain \"success\": false", FALSE, createUserErrorResponse.isSuccess());
+        assertEquals("The response body must contain \"success\": false", FALSE, userErrorResponse.isSuccess());
     }
 }

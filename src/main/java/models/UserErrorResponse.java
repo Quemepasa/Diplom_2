@@ -1,6 +1,6 @@
 package models;
 
-public class CreateUserErrorResponse {
+public class UserErrorResponse {
     private boolean success;
     private String message;
 

@@ -1,6 +1,6 @@
 package models;
 
-public class CreateUserSuccessResponse {
+public class UserSuccessResponse {
     private boolean success;
     private User user;
     private String accessToken;

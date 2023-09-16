@@ -3,34 +3,34 @@ package user;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import models.CreateUserRequest;
-import models.CreateUserSuccessResponse;
+import models.UserSuccessResponse;
 import org.junit.After;
 import org.junit.Test;
 
 import static java.lang.Boolean.*;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.junit.Assert.assertEquals;
-import static user.UserGenerator.randomUser;
+import static user.UserGenerator.randomUserForRegistration;
 
-public class CreateUserPositiveTests {
+public class CreateUserPositiveTest {
     private CreateUserRequest createUserRequest;
-    private CreateUserSuccessResponse createUserSuccessResponse;
+    private UserSuccessResponse userSuccessResponse;
     private final UserProfile userProfile = new UserProfile();
 
     @DisplayName("Create user with all fields")
     @Test
     public void createUserWithAllFields() {
-        createUserRequest = randomUser();
+        createUserRequest = randomUserForRegistration();
         Response response = userProfile.create(createUserRequest);
 
-        createUserSuccessResponse = response.as(CreateUserSuccessResponse.class);
+        userSuccessResponse = response.as(UserSuccessResponse.class);
 
         assertEquals("Invalid status code", SC_OK, response.statusCode());
-        assertEquals("The response body must contain \"success\": true", TRUE, createUserSuccessResponse.isSuccess());
+        assertEquals("The response body must contain \"success\": true", TRUE, userSuccessResponse.isSuccess());
     }
 
     @After
     public void tearDown() {
-        userProfile.delete(createUserSuccessResponse, createUserRequest);
+        userProfile.delete(userSuccessResponse, createUserRequest);
     }
 }
