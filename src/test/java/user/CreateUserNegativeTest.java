@@ -11,7 +11,7 @@ import org.junit.Test;
 import static java.lang.Boolean.FALSE;
 import static org.apache.http.HttpStatus.SC_FORBIDDEN;
 import static org.junit.Assert.assertEquals;
-import static user.UserGenerator.randomUserForRegistration;
+import static user.UserGenerator.randomUser;
 
 public class CreateUserNegativeTest {
     private CreateUserRequest createUserRequest;
@@ -21,7 +21,7 @@ public class CreateUserNegativeTest {
     @DisplayName("Create user that already exists")
     @Test
     public void createUserThatAlreadyExists() {
-        createUserRequest = randomUserForRegistration();
+        createUserRequest = randomUser();
 
         Response success_response = userProfile.create(createUserRequest);
         Response error_response = userProfile.create(createUserRequest);

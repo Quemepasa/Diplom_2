@@ -3,6 +3,7 @@ package user;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import models.ChangeUserDataRequest;
 import models.CreateUserRequest;
 import models.UserSuccessResponse;
 import models.LoginUserRequest;
@@ -13,6 +14,7 @@ public class UserProfile {
     private static final String BASE_URI = "https://stellarburgers.nomoreparties.site";
     private static final String CREATE_URL = "api/auth/register";
     private static final String LOGIN_URL = "api/auth/login";
+    private static final String CHANGE_DATA_URL = "api/auth/user";
     private static final String DELETE_URL = "api/auth/user";
 
     public UserProfile() {
@@ -39,13 +41,34 @@ public class UserProfile {
                 .post(LOGIN_URL);
     }
 
+    @Step("Change user data with authorization token")
+    public Response changeDataWithAuth(UserSuccessResponse userSuccessResponse, ChangeUserDataRequest changeUserDataRequest) {
+        return given()
+                .header("Content-type", "application/json")
+                .auth().oauth2(userSuccessResponse.getAccessToken().replace("Bearer ", ""))
+                .and()
+                .body(changeUserDataRequest)
+                .when()
+                .patch(CHANGE_DATA_URL);
+    }
+
+    @Step("Change user data without authorization token")
+    public Response changeDataWithoutAuth(ChangeUserDataRequest changeUserDataRequest) {
+        return given()
+                .header("Content-type", "application/json")
+                .and()
+                .body(changeUserDataRequest)
+                .when()
+                .patch(CHANGE_DATA_URL);
+    }
+
     @Step("Delete user")
-    public void delete(UserSuccessResponse userSuccessResponse, CreateUserRequest createUserRequest) {
+    public void delete(UserSuccessResponse userSuccessResponse, Object request) {
         given()
                 .header("Content-type", "application/json")
                 .auth().oauth2(userSuccessResponse.getAccessToken().replace("Bearer ", ""))
                 .and()
-                .body(createUserRequest)
+                .body(request)
                 .when()
                 .delete(DELETE_URL);
     }

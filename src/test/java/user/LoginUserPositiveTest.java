@@ -11,7 +11,7 @@ import org.junit.Test;
 import static java.lang.Boolean.TRUE;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.junit.Assert.assertEquals;
-import static user.UserGenerator.randomUserForRegistration;
+import static user.UserGenerator.randomUser;
 
 public class LoginUserPositiveTest {
     private CreateUserRequest createUserRequest;
@@ -21,7 +21,7 @@ public class LoginUserPositiveTest {
     @DisplayName("Login under existing user")
     @Test
     public void loginUnderExistingUser() {
-        createUserRequest = randomUserForRegistration();
+        createUserRequest = randomUser();
         userProfile.create(createUserRequest);
 
         LoginUserRequest loginUserRequest = new LoginUserRequest(createUserRequest.getEmail(), createUserRequest.getPassword());

@@ -25,9 +25,9 @@ public class CreateUserParametrizedNegativeTest {
     @Parameterized.Parameters(name = "Test data: {0}")
     public static Object[][] getSumData() {
         return new Object[][] {
-                { "Registration without email", userWithoutEmail() },
-                { "Registration without password", userWithoutPassword() },
-                { "Registration without name", userWithoutName() },
+                { "User without email", randomUserWithoutEmail() },
+                { "User without password", randomUserWithoutPassword() },
+                { "User without name", randomUserWithoutName() },
         };
     }
 

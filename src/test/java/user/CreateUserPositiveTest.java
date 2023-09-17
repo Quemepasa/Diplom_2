@@ -10,7 +10,7 @@ import org.junit.Test;
 import static java.lang.Boolean.*;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.junit.Assert.assertEquals;
-import static user.UserGenerator.randomUserForRegistration;
+import static user.UserGenerator.randomUser;
 
 public class CreateUserPositiveTest {
     private CreateUserRequest createUserRequest;
@@ -20,7 +20,7 @@ public class CreateUserPositiveTest {
     @DisplayName("Create user with all fields")
     @Test
     public void createUserWithAllFields() {
-        createUserRequest = randomUserForRegistration();
+        createUserRequest = randomUser();
         Response response = userProfile.create(createUserRequest);
 
         userSuccessResponse = response.as(UserSuccessResponse.class);

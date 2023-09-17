@@ -9,7 +9,7 @@ import org.junit.Test;
 import static java.lang.Boolean.FALSE;
 import static org.apache.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.junit.Assert.assertEquals;
-import static user.UserGenerator.randomUserForLogin;
+import static user.UserGenerator.randomUserLogin;
 
 public class LoginUserNegativeTest {
     private final UserProfile userProfile = new UserProfile();
@@ -17,7 +17,7 @@ public class LoginUserNegativeTest {
     @DisplayName("Login with invalid data")
     @Test
     public void loginWithInvalidData() {
-        LoginUserRequest loginUserRequest = randomUserForLogin();
+        LoginUserRequest loginUserRequest = randomUserLogin();
         Response response = userProfile.login(loginUserRequest);
 
         UserSuccessResponse userSuccessResponse = response.as(UserSuccessResponse.class);
