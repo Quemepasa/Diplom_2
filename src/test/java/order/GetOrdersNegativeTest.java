@@ -12,9 +12,9 @@ import static org.junit.Assert.assertEquals;
 public class GetOrdersNegativeTest {
     private final OrderActions orderActions = new OrderActions();
 
-    @DisplayName("Create order with auth token and ingredients")
+    @DisplayName("Get orders without auth token")
     @Test
-    public void createOrderWithAuthTokenAndIngredients(){
+    public void getOrderWithoutAuthToken(){
         Response response = orderActions.getOrdersWithoutAuth();
         OrderErrorResponse orderErrorResponse = response.as(OrderErrorResponse.class);
 

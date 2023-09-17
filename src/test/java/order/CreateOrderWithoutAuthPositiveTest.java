@@ -12,9 +12,9 @@ import static org.junit.Assert.assertEquals;
 public class CreateOrderWithoutAuthPositiveTest {
     private final OrderActions orderActions = new OrderActions();
 
-    @DisplayName("Create order with ingredients and without auth token")
+    @DisplayName("Create order without auth token")
     @Test
-    public void createOrderWithIngredientsAndWithoutAuthToken(){
+    public void createOrderWithoutAuthToken(){
         String json = "{\"ingredients\": [\"61c0c5a71d1f82001bdaaa79\", \"61c0c5a71d1f82001bdaaa76\"]}";
         Response response = orderActions.createOrderWithoutAuth(json);
         OrderSuccessResponse orderSuccessResponse = response.as(OrderSuccessResponse.class);

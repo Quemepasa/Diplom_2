@@ -24,9 +24,9 @@ public class CreateOrderNegativeTests {
         assertEquals("The response body must contain \"success\": false", FALSE, orderSuccessResponse.isSuccess());
     }
 
-    @DisplayName("Create order without ingredients")
+    @DisplayName("Create order with invalid hash of ingredient")
     @Test
-    public void createOrderWithInvalidHashOfIngredients(){
+    public void createOrderWithInvalidHashOfIngredient(){
         String json = "{\"ingredients\": [\"non-existent hash of the ingredient\"]}";
         Response response = orderActions.createOrderWithoutAuth(json);
 

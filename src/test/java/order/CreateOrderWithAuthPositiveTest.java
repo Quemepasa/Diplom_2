@@ -21,9 +21,9 @@ public class CreateOrderWithAuthPositiveTest {
     private final UserActions userActions = new UserActions();
     private final OrderActions orderActions = new OrderActions();
 
-    @DisplayName("Create order with auth token and ingredients")
+    @DisplayName("Create order with auth token")
     @Test
-    public void createOrderWithAuthTokenAndIngredients(){
+    public void createOrderWithAuthToken(){
         createUserRequest = randomUser();
         userActions.createUser(createUserRequest);
 
