@@ -2,9 +2,9 @@ package user;
 
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
-import models.CreateUserRequest;
-import models.UserSuccessResponse;
-import models.LoginUserRequest;
+import user.models.CreateUserRequest;
+import user.models.UserSuccessResponse;
+import user.models.LoginUserRequest;
 import org.junit.After;
 import org.junit.Test;
 
@@ -16,16 +16,16 @@ import static user.UserGenerator.randomUser;
 public class LoginUserPositiveTest {
     private CreateUserRequest createUserRequest;
     private UserSuccessResponse userSuccessResponse;
-    private final UserProfile userProfile = new UserProfile();
+    private final UserActions userActions = new UserActions();
 
     @DisplayName("Login under existing user")
     @Test
     public void loginUnderExistingUser() {
         createUserRequest = randomUser();
-        userProfile.create(createUserRequest);
+        userActions.createUser(createUserRequest);
 
         LoginUserRequest loginUserRequest = new LoginUserRequest(createUserRequest.getEmail(), createUserRequest.getPassword());
-        Response response = userProfile.login(loginUserRequest);
+        Response response = userActions.login(loginUserRequest);
 
         userSuccessResponse = response.as(UserSuccessResponse.class);
 
@@ -35,6 +35,6 @@ public class LoginUserPositiveTest {
 
     @After
     public void tearDown() {
-        userProfile.delete(userSuccessResponse, createUserRequest);
+        userActions.deleteUser(userSuccessResponse, createUserRequest);
     }
 }

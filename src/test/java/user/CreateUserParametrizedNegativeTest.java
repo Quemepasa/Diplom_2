@@ -2,8 +2,8 @@ package user;
 
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
-import models.UserErrorResponse;
-import models.CreateUserRequest;
+import user.models.UserErrorResponse;
+import user.models.CreateUserRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -16,7 +16,7 @@ import static user.UserGenerator.*;
 @RunWith(Parameterized.class)
 public class CreateUserParametrizedNegativeTest {
     private final CreateUserRequest createUserRequest;
-    private final UserProfile userProfile = new UserProfile();
+    private final UserActions userActions = new UserActions();
 
     public CreateUserParametrizedNegativeTest(String ignoredDescription, CreateUserRequest createUserRequest) {
         this.createUserRequest = createUserRequest;
@@ -34,7 +34,7 @@ public class CreateUserParametrizedNegativeTest {
     @DisplayName("Create user without required field")
     @Test
     public void createUserWithoutRequiredField() {
-        Response response = userProfile.create(createUserRequest);
+        Response response = userActions.createUser(createUserRequest);
 
         UserErrorResponse userErrorResponse = response.as(UserErrorResponse.class);
 

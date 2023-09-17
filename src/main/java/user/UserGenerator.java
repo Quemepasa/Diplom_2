@@ -1,9 +1,8 @@
 package user;
 
-import models.ChangeUserDataRequest;
-import models.CreateUserRequest;
-import models.LoginUserRequest;
-import utils.Utils;
+import user.models.ChangeUserDataRequest;
+import user.models.CreateUserRequest;
+import user.models.LoginUserRequest;
 
 import java.util.Random;
 
@@ -52,7 +51,7 @@ public class UserGenerator {
     public static ChangeUserDataRequest changeUserPassword(CreateUserRequest createUserRequest) {
         return new ChangeUserDataRequest()
                 .setEmail(createUserRequest.getEmail())
-                .setPassword(Utils.randomString(7))
+                .setPassword(randomString(7))
                 .setName(createUserRequest.getName());
     }
 
@@ -60,6 +59,6 @@ public class UserGenerator {
         return new ChangeUserDataRequest()
                 .setEmail(createUserRequest.getEmail())
                 .setPassword(createUserRequest.getPassword())
-                .setName(Utils.randomString(6));
+                .setName(randomString(6));
     }
 }

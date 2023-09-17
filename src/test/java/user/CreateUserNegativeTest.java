@@ -2,9 +2,9 @@ package user;
 
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
-import models.CreateUserRequest;
-import models.UserErrorResponse;
-import models.UserSuccessResponse;
+import user.models.CreateUserRequest;
+import user.models.UserErrorResponse;
+import user.models.UserSuccessResponse;
 import org.junit.After;
 import org.junit.Test;
 
@@ -16,15 +16,15 @@ import static user.UserGenerator.randomUser;
 public class CreateUserNegativeTest {
     private CreateUserRequest createUserRequest;
     private UserSuccessResponse userSuccessResponse;
-    private final UserProfile userProfile = new UserProfile();
+    private final UserActions userActions = new UserActions();
 
     @DisplayName("Create user that already exists")
     @Test
     public void createUserThatAlreadyExists() {
         createUserRequest = randomUser();
 
-        Response success_response = userProfile.create(createUserRequest);
-        Response error_response = userProfile.create(createUserRequest);
+        Response success_response = userActions.createUser(createUserRequest);
+        Response error_response = userActions.createUser(createUserRequest);
 
         userSuccessResponse = success_response.as(UserSuccessResponse.class);
         UserErrorResponse userErrorResponse = error_response.as(UserErrorResponse.class);
@@ -35,6 +35,6 @@ public class CreateUserNegativeTest {
 
     @After
     public void tearDown() {
-        userProfile.delete(userSuccessResponse, createUserRequest);
+        userActions.deleteUser(userSuccessResponse, createUserRequest);
     }
 }

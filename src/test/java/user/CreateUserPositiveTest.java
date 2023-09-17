@@ -2,8 +2,8 @@ package user;
 
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
-import models.CreateUserRequest;
-import models.UserSuccessResponse;
+import user.models.CreateUserRequest;
+import user.models.UserSuccessResponse;
 import org.junit.After;
 import org.junit.Test;
 
@@ -15,13 +15,13 @@ import static user.UserGenerator.randomUser;
 public class CreateUserPositiveTest {
     private CreateUserRequest createUserRequest;
     private UserSuccessResponse userSuccessResponse;
-    private final UserProfile userProfile = new UserProfile();
+    private final UserActions userActions = new UserActions();
 
     @DisplayName("Create user with all fields")
     @Test
     public void createUserWithAllFields() {
         createUserRequest = randomUser();
-        Response response = userProfile.create(createUserRequest);
+        Response response = userActions.createUser(createUserRequest);
 
         userSuccessResponse = response.as(UserSuccessResponse.class);
 
@@ -31,6 +31,6 @@ public class CreateUserPositiveTest {
 
     @After
     public void tearDown() {
-        userProfile.delete(userSuccessResponse, createUserRequest);
+        userActions.deleteUser(userSuccessResponse, createUserRequest);
     }
 }

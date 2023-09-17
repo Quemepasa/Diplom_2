@@ -3,26 +3,26 @@ package user;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import models.ChangeUserDataRequest;
-import models.CreateUserRequest;
-import models.UserSuccessResponse;
-import models.LoginUserRequest;
+import user.models.ChangeUserDataRequest;
+import user.models.CreateUserRequest;
+import user.models.UserSuccessResponse;
+import user.models.LoginUserRequest;
 
 import static io.restassured.RestAssured.given;
 
-public class UserProfile {
+public class UserActions {
     private static final String BASE_URI = "https://stellarburgers.nomoreparties.site";
     private static final String CREATE_URL = "api/auth/register";
     private static final String LOGIN_URL = "api/auth/login";
     private static final String CHANGE_DATA_URL = "api/auth/user";
     private static final String DELETE_URL = "api/auth/user";
 
-    public UserProfile() {
+    public UserActions() {
         RestAssured.baseURI = BASE_URI;
     }
 
     @Step("Create user")
-    public Response create(CreateUserRequest createUserRequest) {
+    public Response createUser(CreateUserRequest createUserRequest) {
         return given()
                 .header("Content-type", "application/json")
                 .and()
@@ -63,7 +63,7 @@ public class UserProfile {
     }
 
     @Step("Delete user")
-    public void delete(UserSuccessResponse userSuccessResponse, Object request) {
+    public void deleteUser(UserSuccessResponse userSuccessResponse, Object request) {
         given()
                 .header("Content-type", "application/json")
                 .auth().oauth2(userSuccessResponse.getAccessToken().replace("Bearer ", ""))
